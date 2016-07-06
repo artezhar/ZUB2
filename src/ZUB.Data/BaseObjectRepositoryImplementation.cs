@@ -25,7 +25,7 @@ namespace ZUB.Data
         {
             //_dbConn.Open();
 
-            var ret = _dbConn.Query<T>($"SELECT * FROM \"{typeof(T).Name}\"");
+            var ret = _dbConn.Query<T>($"SELECT * FROM \"{Mapping.BaseTableName}\"");
             _dbConn.Close();
             _dbConn.Dispose();
             return ret;

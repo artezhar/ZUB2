@@ -18,7 +18,7 @@ namespace ZUB.Data
 
         public static void Add(Type type, Mapping mapping) { if (!mps.ContainsKey(type)) mps.GetOrAdd(type, mapping); }
 
-        public static void Add(Type type, IDbConnection conn) { if (!mps.ContainsKey(type)) mps.GetOrAdd(type, Automap(type,conn)); }
+        public static void Add(Type type, IDbConnection conn) { if (!mps.ContainsKey(type)) mps.GetOrAdd(type, Automap(type, conn)); }
 
         public static void AddOrReplace(Type type, Mapping mapping) { if (!mps.ContainsKey(type)) mps.GetOrAdd(type, mapping); else mps[type] = mapping; }
 
@@ -33,7 +33,7 @@ namespace ZUB.Data
             {
                 foreach (string name in obj_n.Intersect(props.Select(p => p.Name), sComp))
                 {
-                    map.Add(new MappingItem(props.Single(p => String.Compare(p.Name, name, !matchCase) == 0), type.Name, name));
+                    //map.Add(new MappingItem(props.Single(p => String.Compare(p.Name, name, !matchCase) == 0), type.Name, name));
                 }
                 /* foreach(string name in props.Select(p=>p.Name).Where(s=>!obj_n.Contains(s,sComp)))
                  {
@@ -52,59 +52,11 @@ namespace ZUB.Data
 
 
 
-    public class MappingItem
-    {
-        public PropertyInfo Property { get; set; }// Надо ли?
-        public string PropertyName { get; set; }
-        public string TableName { get; set; }
-        public string ColumnName { get; set; }
+    
 
-        public MappingItem(PropertyInfo pi, string tn, string cn)
-        {
-            Property = pi;
-            TableName = tn;
-            ColumnName = cn;
-        }
+    
 
-        public MappingItem(string pn, string tn, string cn)
-        {
-            TableName = tn;
-            ColumnName = cn;
-            PropertyName = pn;
-        }
-    }
-
-    public class Mapping : List<MappingItem>
-    {
-        public Type Type { get; set; }
-    }
-
-    public class MappingBuilder
-    {
-        private Mapping _mapping=new Mapping();
-
-        public Mapping Build()
-        {
-            return _mapping;
-        }
-
-        public MappingBuilder Type(Type type)
-        {
-            _mapping.Type = type;
-            return this;
-        }
-
-        public MappingBuilder SetMainTable(string table_name)
-        {
-            return this;
-        }
-
-        public MappingBuilder MapProperty(string prop, string tn, string cn)
-        {
-            _mapping.Add(new MappingItem())
-            return this;
-        }
-    }
+    
 
 
     internal class ts_row

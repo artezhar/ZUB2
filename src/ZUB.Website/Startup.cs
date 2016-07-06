@@ -30,7 +30,7 @@ namespace ZUB.Website
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddScoped(typeof(IUnitOfWork), typeof(DapperUOWImplementation));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UOWImplementation));
             services.AddMvc();
         }
 
